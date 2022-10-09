@@ -91,16 +91,11 @@ if [ -x /usr/bin/dircolors ]; then
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
-    alias burp='java -noverify -javaagent:/home/g0rchy/Documents/Burp/Dr.FarFar.jar -jar /home/g0rchy/Documents/Burp/burpsuite_pro_v2021.2.jar'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
     alias diff='diff --color=auto'
     alias ip='ip --color=auto'
-    alias www='sudo python3 -m http.server 80'
-    alias gdb='gdb -q'
-    alias j='john --wordlist=/usr/share/wordlists/rockyou.txt'
-	alias nmap='nmap --privileged'
     export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
     export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
     export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
@@ -111,12 +106,43 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+
+# Custom aliases
+alias www='python3 -m http.server 80'
+alias gdb='gdb -q'
+alias j='john --wordlist=/usr/share/wordlists/rockyou.txt'
+alias nmap='nmap --privileged'
+alias copy='xclip -selection clipboard'
+alias htbvpn='sudo openvpn ~/vpn/HTB/g0rchy.ovpn'
+alias htbrvpn='sudo openvpn ~/vpn/HTB/release_arena_g0rchy.ovpn'
+alias thmvpn='sudo openvpn ~/vpn/THM/g0rchy.ovpn'
+
+
+# Custom functions
+
+# No python, sed, awk craziness, just pure bashism
+function urldecode() { local i="${*//+/ }"; echo -e "${i//%/\\x}"; }
+
+# TODO i might need to look for a "simpler" & reliable one
+function urlencode() {
+    local string="${1}";local strlen=${#string};local encoded="";local pos c o
+
+    for (( pos=0 ; pos<strlen ; pos++ )); do
+        c=${string:$pos:1}
+        case "$c" in
+           [-_.~a-zA-Z0-9] ) o="${c}" ;;
+           * )               printf -v o '%%%02x' "'$c"
+        esac
+        encoded+="${o}"
+    done
+    echo "${encoded}"
+}
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
