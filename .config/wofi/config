@@ -1,0 +1,6 @@
+insensitive=true
+allow_images=true
+term=alacritty
+mode=drun,run
+gtk_dark=true
+hide_scroll=true

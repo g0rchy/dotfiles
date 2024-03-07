@@ -1,0 +1,24 @@
+* {
+  font-family: "JetBrains Mono";
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+window {
+  color:      rgba(217, 216, 216, 1);
+}
+
+window#waybar {
+  background: transparent;
+}
+
+#workspaces button {
+  color: #b4befe;
+  margin: 0px 4px;
+}
+
+#battery, #cpu, #memory, #network, #wireplumber {
+  margin:     0px 3px 0px 5px;
+  min-width:  5px;
+}
