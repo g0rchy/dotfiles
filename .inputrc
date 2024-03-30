@@ -1,12 +1,3 @@
-# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
-set match-hidden-files off
-
-# Show all autocomplete results at once
-set page-completions off
-
-# Immediately show all possible completions
-set show-all-if-ambiguous on
-
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
 
@@ -30,3 +21,4 @@ set skip-completed-text on
 
 # Show extra file information when completing, like `ls -F` does
 set visible-stats on
+
