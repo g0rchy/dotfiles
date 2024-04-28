@@ -29,9 +29,12 @@ shopt -s cdspell
 # Auto Correct directory spelling, for when you suck at typing
 shopt -s dirspell
 
+# Auto cd to paths
+shopt -s autocd
+
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -48,37 +51,20 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
 if [ "$color_prompt" = yes ]; then
-    prompt_color='\[\033[1;34m\]'
-    path_color='\[\033[1;32m\]'
-    if [ "$EUID" -eq 0 ]; then # Change prompt colors for root user
-	prompt_color='\[\033[1;31m\]'
-	path_color='\[\033[1;34m\]'
-    fi
-    PS1='${debian_chroot:+($debian_chroot)}'$prompt_color'\u@\h\[\033[00m\]:'$path_color'\w\[\033[00m\]\$ '
-    unset prompt_color path_color
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1=" \[\033[1;36m\]\w \[\033[1;34m\]\$\[\033[0m\] "
 fi
-unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+unset color_prompt force_color_prompt
 
 # enable color support of ls, less and man, and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -108,7 +94,10 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+source ~/.bash_aliases
 
+# Enable bash completion
+source /usr/share/bash-completion/bash_completion
+
+# Enable "command not found" suggestions
+source /usr/share/doc/pkgfile/command-not-found.bash
